@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href='/' class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href='/about' class="nav-link">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a href='/database' class="nav-link">DATABASE</a>
+          </li>
+          <li class="nav-item">
+            <a href='/statistics' class="nav-link">STATISTICS</a>
+          </li>
+          <li class="nav-item">
+            <a href='/login' class="nav-link">LOGIN</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header> 
+        <h1> Statistics Page </h1>
+    
+            <div class="mb-3">
+                  <input type="text" id="source" list="countryAirport" placeholder="Enter Source Airport Here" style="width: 450px;"/>
+                  <datalist id="countryAirport" name="airport">
+                      <% for(var count = 0; count < airport_data.length; count++) { %>
+
+                      <option value="<%= airport_data[count].Name %>"><%= airport_data[count].Name %> (<%= airport_data[count].Country %>)</option>
+
+                      <% } %>
+                  </datalist>
+              </div>
+              
+    <button id="findFlights" style="width: 450px;" onclick="findFlights()">Find top 15 most used airlines at this airport</button>
+              
+    <!-- <ul>
+    <% for(var count = 0; count < routes.length; count++) { %>
+      <li>( <%= routes[count].Airport %> ) <%= routes[count].Airline %> (<%= routes[count].Total %>)</li>
+
+    <% } %>
+  </ul> -->
+  <br>
+  <iframe width="900" height="400" frameborder="0" style="position:relative; left: 0px;" scrolling="no" src="//plotly.com/~yugmittal712/2.embed"></iframe>
+  
+  
+  <script>
+
+    function findFlights() {
+      var source = document.getElementById('source').value;
+      if (source.length != 0) {
+        window.open(`statistics?airport=${source}`, "_self");
+        console.log("Find airports");
+      }
+      // window.open(`database`, "_blank");
+    }
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="mb-3">
+        <input type="text" id="source_two" list="cityAirport" placeholder="Enter Source City Here" style="width: 450px;"/>
+        <datalist id="cityAirport" name="city">
+            <% for(var count = 0; count < city_data.length; count++) { %>
+
+            <option value="<%= city_data[count].City %>"></option>
+
+            <% } %>
+        </datalist>
+    </div>
+              
+    <button id="findCities" style="width: 450px;" onclick="findCities()">Find the cities that you can visit from the selected one</button>
+              
+    <ul>
+    <% for(var count = 0; count < cities.length; count++) { %>
+      <li>( <%= cities[count].City %> )</li>
+
+    <% } %>
+  </ul>
+  
+  
+    <script>
+
+      function findCities() {
+        var source_two = document.getElementById('source_two').value;
+        if (source_two.length != 0) {
+          window.open(`statistics?city=${source_two}`, "_self");
+          console.log("Find cities");
+        }
+        // window.open(`database`, "_blank");
+      }
+  </script>
+  
+  
+  
+    </body>
+
+</html>

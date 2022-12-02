@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <img src="../images/airport.png" width="50px" height="50px">
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href='/' class="nav-link">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a href='/about' class="nav-link">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a href='/database' class="nav-link">DATABASE</a>
+          </li>
+          <li class="nav-item">
+            <a href='/statistics' class="nav-link">STATISTICS</a>
+          </li>
+          <li class="nav-item">
+            <a href='/login' class="nav-link">LOGIN</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header> 
+
+    <div class="container">
+      <h1 class="text-center text-primary mt-3 mb-3">Here are your past searches</h1>
+      <div class="mb-3">
+        <select name="state" id="searchHistory" class="form-control">
+        <!-- <input type="text" id="searchHistory" list="searchHist" placeholder="Enter Search result here" style="width: 450px;"/> -->
+        <!-- <datalist id="searchHist" name="airport"> -->
+          <% if (search_history) { %>
+            <% for(var count = 0; count < search_history.length; count++) { %>
+
+            <option value="<%= search_history[count].SourceAirportName %> -- <%= search_history[count].DestinationAirportName %>"><%= search_history[count].SourceAirportName %> (<%= search_history[count].Source %>) -- <%= search_history[count].DestinationAirportName %> (<%= search_history[count].Destination %>)</option>
+
+            <% } %>
+          <% } %>
+        <!-- </datalist> -->
+        </select>
+    </div>
+    <button id="findFlights" style="width: 450px;" onclick="deleteFromSearchHistory()">Delete item from search history</button>
+    </div>
+
+    <div class="container">
+      <h1 class="text-center text-primary mt-3 mb-3">Please select your flights from one airport to another below</h1>
+
+      <div class="card">
+          <div class="card-body">
+              <div class="mb-3">
+                  <h1>From country </h1>
+                  <input type="text" id="source" list="countryAirport" placeholder="Enter Source Airport Here" style="width: 450px;"/>
+                  <datalist id="countryAirport" name="airport">
+                      <% for(var count = 0; count < airport_data.length; count++) { %>
+
+                      <option value="<%= airport_data[count].Name %>"><%= airport_data[count].Name %> (<%= airport_data[count].Country %>)</option>
+
+                      <% } %>
+                  </datalist>
+              </div>
+              <div class="mb-3">
+                <input type="text" id="destination" list="countryAirport" placeholder="Enter Destination Airport Here" style="width: 450px;"/>
+                <datalist id="countryAirport" name="airport">
+                  <!-- <select name="state" id="state" class="form-control"> -->
+                      <option value="">Select Second Airport</option>
+                      <% for(var count = 0; count < airport_data.length; count++) { %>
+
+                        <option value="<%= airport_data[count].Name %>"><%= airport_data[count].Name %> (<%= airport_data[count].Country %>) </option>
+  
+                      <% } %>
+                </datalist>
+                  <!-- </select> -->
+              </div>
+              <div class="mb-3">
+                <input type="text" id="airlines" list="preferredAirlines" placeholder="Enter Preferred Airline Here" style="width: 450px;" multiple/>
+                <datalist id="preferredAirlines" name="airport">
+                  <!-- <select name="state" id="state" class="form-control"> -->
+                      <option value="">Select Preferred Airline</option>
+                      <% for(var count = 0; count < airline_data.length; count++) { %>
+
+                        <option value="<%= airline_data[count].Name %>"><%= airline_data[count].Name %> (<%= airline_data[count].Country %>) </option>
+  
+                      <% } %>
+                </datalist>
+                  <!-- </select> -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <button id="findFlights" style="width: 450px;" onclick="findFlights()">Find flights between airports</button>
+  <table>
+    <tr>
+      <th>Source Airport</th>
+      <th>Destination Airport</th>
+      <th>Airline</th>
+    </tr>
+    <% for(var count = 0; count < routes.length; count++) { %>
+      <tr>
+        <th><%= routes[count].SourceAirportName %> (<%= routes[count].Source %>)</th>
+        <th><%= routes[count].DestAirportName %> (<%= routes[count].Destination %>)</th>
+        <th><%= routes[count].AirlineName %> (<%= routes[count].Airline %>)</th>
+      </tr>
+    <% } %>
+    </table>
+
+    <% if (procedure_result) { %>
+      <h1>Here are some airports 50 miles away from your destination</h1>
+      <table>
+        <tr>
+          <th>Airport Name</th>
+          <th>City</th>
+          <th>Country</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Distance</th>
+        </tr>
+      <% for(var count = 0; count < procedure_result.length; count++) { %>
+        <tr>
+          <th><%= procedure_result[count].Name %></th>
+          <th><%= procedure_result[count].City %> </th>
+          <th><%= procedure_result[count].Country %></th>
+          <th><%= procedure_result[count].Latitude %></th>
+          <th><%= procedure_result[count].Longitude %> </th>
+          <th><%= procedure_result[count].Distance %></th>
+        </tr>
+      <% } %>
+    </table>
+    <% } %>
+  <!-- <ul>
+    <% for(var count = 0; count < routes.length; count++) { %>
+      <li>( <%= routes[count].Source %> ) <%= routes[count].Source %> to <%= routes[count].Destination %> from airline <%= routes[count].AirlineName %> (<%= routes[count].Airline %>)</li>
+
+    <% } %>
+  </ul> -->
+  
+  <script>
+
+      function findFlights() {
+        var source = document.getElementById('source').value;
+        var destination = document.getElementById('destination').value;
+        if (source.length != 0 && destination.length != 0) {
+          window.open(`database?source=${source}&destination=${destination}`, "_self");
+          console.log("Find airports");
+        }
+        // window.open(`database`, "_blank");
+      }
+
+      function deleteFromSearchHistory() {
+        var source_and_dest = document.getElementById('searchHistory').value.split(" -- ");
+        console.log(source_and_dest);
+        console.log("Delete from search history");
+        if (source_and_dest.length > 1) {
+          console.log("Delete successful");
+          fetch(`database/deleteFromSearch?source=${source_and_dest[0]}&destination=${source_and_dest[1]}`);
+          window.open(`database`, "_self");
+        }
+      }
+  </script>
+  </body>
+</html>
