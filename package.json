@@ -1,9 +1,15 @@
 {
+  "homepage": "https://lotlouischoitslab/Direct-Flight-Airport-Connections.github.io",
   "name": "final-project-git",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "node build",
+    "test": "node test",
+    "eject": "node eject"
   },
   "dependencies": {
     "all": "^0.0.0",
@@ -22,5 +28,8 @@
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "plotly": "^1.0.6"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
