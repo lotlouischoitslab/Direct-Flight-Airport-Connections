@@ -1,9 +1,11 @@
 # A-Team001 Direct-Flight Airport Connections
 ## Contributors:
-- ### Louis Sungwoo Cho 
-- ### Javi Cardenas
-- ### Shriyan Shailesh Gosavi
-- ### Yug Mittal
+- **Yug Mittal, Computer Science Major, Electrical Engineering Minor, University of Illinois at Urbana-Champaign (UIUC)**
+- **Louis Sungwoo Cho, Civil & Environmental Engineering (Transportation) Major, Computer Science Minor, University of Illinois at Urbana-Champaign (UIUC)**
+- **Shriyan Shailesh Gosavi, Computer Science Major, University of Illinois at Urbana-Champaign (UIUC)**
+- **Javi Cardenas, Electrical Engineering Major, Computer Science Minor, University of Illinois at Urbana-Champaign (UIUC)**
+
+
 
 ## Documentation:
 **Step 1:** First you need to clone this repository to your local machine by entering the following command into your local terminal. </br>
