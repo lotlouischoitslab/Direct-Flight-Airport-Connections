@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+var plotly = require('plotly')("yugmittal712", "FPZSPfukqPlr21sOEFMW")
 
 /* GET home page. */
 // var con = mysql.createConnection({
@@ -38,6 +39,51 @@ function renderDBPage(res, routes, currentUser = null, callProcedure = false) {
                     if (callProcedure) {
                         con.query(`CALL new_procedure`, function (err6, procedureResult) {
                             if (err6) return err6;
+
+                            var distStatus = []
+                            var numAirports = []
+                            for (var i = 0; i < procedureResult[0].length; i++) {
+                                distStatus.push(procedureResult[0][i]["MilesAwayFromAirport"]);
+                                numAirports.push(procedureResult[0][i]["NumberOfAirports"])
+                            }
+                            console.log(distStatus);
+                            if (procedureResult.length > 0) {
+                                var data = [
+                                {
+                                    x: distStatus,
+                                    y: numAirports,
+                                    type: "bar",
+                                }
+                                ];
+                                var layout = {
+                                    title: `Distance relation from destination airports to other airports`,
+                                    xaxis: {title: "Miles Away From Airport"},
+                                    yaxis: {
+                                    title: "Number of airports",
+                                    titlefont: {
+                                        size: 16,
+                                        color: "rgb(107, 107, 107)"
+                                    },
+                                    tickfont: {
+                                        size: 14,
+                                        color: "rgb(107, 107, 107)"
+                                    }
+                                    },
+                                    legend: {
+                                    x: 0,
+                                    y: 1.0,
+                                    bgcolor: "rgba(255, 255, 255, 0)",
+                                    bordercolor: "rgba(255, 255, 255, 0)"
+                                    },
+                                    barmode: "group",
+                                    bargap: 0.15,
+                                    bargroupgap: 0.1
+                                };
+                                var graphOptions = {layout: layout, filename: "distance-airports", fileopt: "overwrite"};
+                                plotly.plot(data, graphOptions, function (err, msg) {
+                                    console.log(msg);
+                                });
+                            }
                             console.log(procedureResult[0]);
                             res.render('database', { title: 'Express', airport_data: airportresult, airline_data: airlineresult, routes: routes, search_history: searchresults, procedure_result: procedureResult[0]});
                         });   
@@ -51,7 +97,54 @@ function renderDBPage(res, routes, currentUser = null, callProcedure = false) {
                 if (callProcedure) {
                     con.query(`CALL new_procedure`, function (err6, procedureResult) {
                         if (err6) return err6;
-                        console.log(procedureResult[0]);
+                        var distStatus = []
+                        var numAirports = []
+                        for (var i = 0; i < procedureResult[1].length; i++) {
+                            distStatus.push(procedureResult[1][i]["MilesAwayFromAirport"]);
+
+                            numAirports.push(procedureResult[1][i]["NumberOfAirports"])
+                        }
+                        console.log(procedureResult[1]);
+                        console.log(procedureResult[1].length);
+                        console.log(distStatus);
+                        if (procedureResult.length > 0) {
+                            var data = [
+                            {
+                                x: distStatus,
+                                y: numAirports,
+                                type: "bar",
+                            }
+                            ];
+                            var layout = {
+                                title: `Distance relation from destination airports to other airports`,
+                                xaxis: {title: "Miles Away From Airport"},
+                                yaxis: {
+                                  title: "Number of airports",
+                                  titlefont: {
+                                    size: 16,
+                                    color: "rgb(107, 107, 107)"
+                                  },
+                                  tickfont: {
+                                    size: 14,
+                                    color: "rgb(107, 107, 107)"
+                                  }
+                                },
+                                legend: {
+                                  x: 0,
+                                  y: 1.0,
+                                  bgcolor: "rgba(255, 255, 255, 0)",
+                                  bordercolor: "rgba(255, 255, 255, 0)"
+                                },
+                                barmode: "group",
+                                bargap: 0.15,
+                                bargroupgap: 0.1
+                              };
+                            var graphOptions = {layout: layout, filename: "distance-airports", fileopt: "overwrite"};
+                            plotly.plot(data, graphOptions, function (err, msg) {
+                                console.log(msg);
+                            });
+                        }
+
                         res.render('database', { title: 'Express', airport_data: airportresult, airline_data: airlineresult, routes: routes, search_history: [], procedure_result: procedureResult[1]});
                     });   
                 } else {

@@ -14,6 +14,10 @@
 
         npx install nodejs
         npm install nodemon
+        npm install express
+        npm install plotly
+        npm install mysql
+        
         
 **Step 3:** You then have to go to the app.js and database.js and next to the 'user' variable, you need to input your MySQL username and in the 'password' variable, you need to input your MySQL password. Do not forget to add your local database name into the 'database' variable as well. 
 

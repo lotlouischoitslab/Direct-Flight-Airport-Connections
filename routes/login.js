@@ -44,7 +44,7 @@ router.post('/auth', function(request, response) {
 			response.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
+		response.send('Please enter valid Username and Password!');
 		response.end();
 	}
 });
@@ -64,11 +64,8 @@ router.post('/createUser', function(request, response) {
 			// If the account exists
 			if (results.length > 0) {
 				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.username = username;
-				// Redirect to home page
-				response.redirect("/");
-        		response.end();
+				response.send('User already exists. Please try different username');
+				response.end();
 			} else {
 				con.query(`INSERT INTO Login (Username, Password) VALUES ("${username}","${password}")`, function(error2, results2) {
 					if (error2) throw error2;
