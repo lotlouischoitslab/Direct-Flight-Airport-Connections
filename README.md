@@ -1,9 +1,9 @@
 # A-Team001 Direct-Flight Airport Connections
 ## Contributors:
-- **Yug Mittal, Computer Science Major, Electrical Engineering Minor, University of Illinois at Urbana-Champaign (UIUC)**
-- **Louis Sungwoo Cho, Civil & Environmental Engineering (Transportation) Major, Computer Science Minor, University of Illinois at Urbana-Champaign (UIUC)**
-- **Shriyan Shailesh Gosavi, Computer Science Major, University of Illinois at Urbana-Champaign (UIUC)**
-- **Javi Cardenas, Electrical Engineering Major, Computer Science Minor, University of Illinois at Urbana-Champaign (UIUC)**
+- **Yug Mittal, Computer Science Major, Electrical Engineering Minor, University of Illinois at Urbana-Champaign**
+- **Louis Sungwoo Cho, Civil & Environmental Engineering (Transportation) Major, Computer Science Minor, University of Illinois at Urbana-Champaign**
+- **Shriyan Shailesh Gosavi, Computer Science Major, University of Illinois at Urbana-Champaign**
+- **Javi Cardenas, Electrical Engineering Major, Computer Science Minor, University of Illinois at Urbana-Champaign**
 
 
 
