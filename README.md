@@ -8,7 +8,7 @@
 ## Documentation:
 **Step 1:** First you need to clone this repository to your local machine by entering the following command into your local terminal. </br>
 
-        git clone https://github.com/cs411-alawini/fa22-cs411-A-team001-LSTJ
+        git clone https://github.com/lotlouischoitslab/Direct-Flight-Airport-Connections
 
 **Step 2:** Then you need to install nodejs and nodemon into your local machine by running the following commands 
 
